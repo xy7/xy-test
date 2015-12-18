@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow id="main" cron="1 1 1 * * *" maxParallel="20">
+	<task id="loaddata" depends="" ignoreError="true" scriptType="subflow" script="${this.id}"/>
+	<task id="dw" depends="loaddata" ignoreError="true" scriptType="subflow" script="${this.id}"/>
+	<task id="cleanReportCache" depends="dw" scriptType="http" script="http://aas.xgsdk.com/ReportEngine/cleanReportCache" />
+	
+	<task id="test_shell_task" scriptType="shell"  >
+		<script>
+			${day}
+			@{day}
+		</script>
+	</task>
+	
+</flow>
